@@ -2,6 +2,10 @@ import { Module } from "@nestjs/common";
 import { Categoria } from "./categoria/entities/categoria.entity";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import {  CategoriaModule } from "./categoria/categoria.module";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { Produto } from "./produto/entities/produto.entity";
+import { ProdutoModule } from "./produto/Produto.module";
 
 
 @Module({
@@ -13,11 +17,12 @@ import {  CategoriaModule } from "./categoria/categoria.module";
       username: 'root',
       password: 'root',
       database: 'db_start_solidario',
-      entities: [Categoria],
+      entities: [Categoria,Produto],
       synchronize: true,
       logging: true,
     }),
-    CategoriaModule
+    CategoriaModule, 
+    ProdutoModule,
     
   ],
   controllers: [],
