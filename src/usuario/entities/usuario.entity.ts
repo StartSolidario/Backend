@@ -20,7 +20,7 @@ export class Usuario{
     idade: Date;
 
     @IsNotEmpty()
-    @Column({length: 11, nullable: false})
+    @Column({nullable: false})
     cpf: number;
 
     @IsNotEmpty()

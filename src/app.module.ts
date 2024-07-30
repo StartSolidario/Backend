@@ -6,6 +6,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { Produto } from "./produto/entities/produto.entity";
 import { ProdutoModule } from "./produto/Produto.module";
+import { Usuario } from "./usuario/entities/usuario.entity";
 
 
 @Module({
@@ -17,7 +18,7 @@ import { ProdutoModule } from "./produto/Produto.module";
       username: 'root',
       password: 'root',
       database: 'db_start_solidario',
-      entities: [Categoria,Produto],
+      entities: [Categoria,Produto, Usuario],
       synchronize: true,
       logging: true,
     }),

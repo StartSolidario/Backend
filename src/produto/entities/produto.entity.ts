@@ -26,7 +26,7 @@ export class Produto{
     @Column({ type: "decimal", precision: 8, scale: 2 })
     preco: number;
 
-    @Column({length: 1000, nullable: true})
+    @Column({nullable: true})
     quantidade: number;
 
     @IsNotEmpty()
