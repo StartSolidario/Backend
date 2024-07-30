@@ -3,6 +3,7 @@ import { Transform, TransformFnParams } from "class-transformer";
 import { IsNotEmpty } from "class-validator";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Produto } from "../../produto/entities/produto.entity";
+import { IsCPF } from "class-validator-cpf";
 
 @Entity({name: "tb_usuario"})
 export class Usuario{
@@ -19,9 +20,10 @@ export class Usuario{
     @Column({nullable: false})
     idade: Date;
 
+    @IsCPF()
     @IsNotEmpty()
     @Column({nullable: false})
-    cpf: number;
+    cpf: string;
 
     @IsNotEmpty()
     @Column({ length: 255, nullable: false})
