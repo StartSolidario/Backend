@@ -19,7 +19,7 @@ export class Usuario{
     @Column({nullable: false})
     idade: Date;
 
-    @IsCPF()
+    @IsCPF({ message: "Por favor digite um CPF válido (xxx.xxx.xxx-xx)" })
     @IsNotEmpty()
     @Column({nullable: false})
     cpf: string;
@@ -35,4 +35,8 @@ export class Usuario{
     @IsNotEmpty()
     @Column ({length: 255, nullable: false})
     foto: string;
+
+    @Column ({length: 255, nullable: true})
+    tipo: string;
+
 }
