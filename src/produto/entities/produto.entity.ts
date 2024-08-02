@@ -38,10 +38,4 @@ export class Produto{
         onDelete: "CASCADE"
     })
     categoria: Categoria
-
-    //Muitos Produtos, possuem um usuario (Muitos para um)
-    @ManyToOne(() => Usuario, (usuario) => usuario.produto, {
-        onDelete: "CASCADE"
-    })
-    usuario: Usuario
 }

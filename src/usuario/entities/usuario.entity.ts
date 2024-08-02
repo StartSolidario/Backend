@@ -1,4 +1,3 @@
-
 import { Transform, TransformFnParams } from "class-transformer";
 import { IsNotEmpty } from "class-validator";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -36,11 +35,4 @@ export class Usuario{
     @IsNotEmpty()
     @Column ({length: 255, nullable: false})
     foto: string;
-
-    @IsNotEmpty()
-    @Column ({length: 255, nullable: false})
-    tipo: string;
-
-   @OneToMany(() => Produto, (produto) => produto.usuario)
-    produto: Produto
 }

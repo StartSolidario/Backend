@@ -7,7 +7,8 @@ import { AppService } from "./app.service";
 import { Produto } from "./produto/entities/produto.entity";
 import { ProdutoModule } from "./produto/Produto.module";
 import { Usuario } from "./usuario/entities/usuario.entity";
-
+import { UsuarioModule } from "./usuario/usuario.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -24,6 +25,8 @@ import { Usuario } from "./usuario/entities/usuario.entity";
     }),
     CategoriaModule, 
     ProdutoModule,
+    AuthModule,
+    UsuarioModule
     
   ],
   controllers: [],
