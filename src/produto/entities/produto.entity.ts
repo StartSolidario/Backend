@@ -3,6 +3,7 @@ import { IsNotEmpty, IsNumber } from "class-validator";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Categoria } from "../../categoria/entities/categoria.entity";
 import { ApiProperty } from "@nestjs/swagger";
+import { NumericTransformer } from "../../util/numerictransformer";
 
 @Entity({ name: "tb_produto" })
 export class Produto {
@@ -28,7 +29,7 @@ export class Produto {
     @ApiProperty()
     @IsNumber({ maxDecimalPlaces: 2 })
     @IsNotEmpty()
-    @Column({ type: "decimal", precision: 8, scale: 2 })
+    @Column({ type: "decimal", precision: 8, scale: 2, transformer: new NumericTransformer() })
     preco: number;
 
     @ApiProperty()
