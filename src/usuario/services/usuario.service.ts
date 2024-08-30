@@ -49,7 +49,7 @@ export class UsuarioService {
         let buscaUsuario = await this.findByUsuario(usuario.usuario);
 
         if (!buscaUsuario) {
-            const nascimentoMoment = moment(usuario.idade, 'DD/MM/YYYY', true);
+            const nascimentoMoment = moment(usuario.idade, 'YYYY-MM-DD', true);
             if (!nascimentoMoment.isValid()) {
                 throw new HttpException('Data de nascimento inválida!', HttpStatus.BAD_REQUEST);
             }
