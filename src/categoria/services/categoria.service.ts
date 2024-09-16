@@ -35,10 +35,10 @@ export class CategoriaService {
         return categoria;
     }
 
-    async findByTipo(tipo: string): Promise<Categoria[]> {
+    async findByNome(nome: string): Promise<Categoria[]> {
         return await this.categoriaRepository.find({
             where: {
-                tipo: ILike(`%${tipo}%`)
+                nome: ILike(`%${nome}%`)
             },
             relations: {
                 produto: true
@@ -52,20 +52,20 @@ export class CategoriaService {
 
     async update(categoria: Categoria): Promise<Categoria> {
 
-        let buscaTema = await this.findById(categoria.id);
+        let buscaCategoria = await this.findById(categoria.id);
 
-        if (!buscaTema || !categoria.id)
-            throw new HttpException('Categoria não encontrado!', HttpStatus.NOT_FOUND);
+        if (!buscaCategoria || !categoria.id)
+            throw new HttpException('Categoria não encontrada!', HttpStatus.NOT_FOUND);
 
         return await this.categoriaRepository.save(categoria);
     }
 
     async delete(id: number): Promise<DeleteResult> {
 
-        let buscaTema = await this.findById(id);
+        let buscaCategoria = await this.findById(id);
 
-        if (!buscaTema)
-            throw new HttpException('Categoria não encontrado!', HttpStatus.NOT_FOUND);
+        if (!buscaCategoria)
+            throw new HttpException('Categoria não encontrada!', HttpStatus.NOT_FOUND);
 
         return await this.categoriaRepository.delete(id);
 

@@ -23,10 +23,10 @@ export class CategoriaController {
     return this.categoriaService.findById(id);
   }
 
-  @Get('/tipo/:tipo')
+  @Get('/nome/:nome')
   @HttpCode(HttpStatus.OK)
-  findByTipo(@Param('tipo') tipo: string): Promise<Categoria[]> {
-    return this.categoriaService.findByTipo(tipo);
+  findByNome(@Param('nome') nome: string): Promise<Categoria[]> {
+    return this.categoriaService.findByNome(nome);
   }
 
   @UseGuards(JwtAuthGuard)

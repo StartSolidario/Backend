@@ -14,8 +14,14 @@ export class Categoria{
     @Transform(({ value }: TransformFnParams) => value?.trim()) //Bloquear espaços em branco
     @ApiProperty() 
     @IsNotEmpty() // Não aceita resultado vazio 
-    @Column({length: 100, nullable: false}) // Definir o tamanho e não aceitar vlor maior que 100
-    tipo: string;
+    @Column({length: 100, nullable: false}) // Definir o tamanho e não aceitar valor maior que 100
+    nome: string;
+
+    @Transform(({ value }: TransformFnParams) => value?.trim())
+    @ApiProperty() 
+    @IsNotEmpty()
+    @Column({length: 5000, nullable: false})
+    imagem: string;
 
     @ApiProperty() 
     @OneToMany(() => Produto, (produto) => produto.categoria)
