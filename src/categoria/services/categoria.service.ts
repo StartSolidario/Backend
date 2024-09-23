@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Categoria } from "../entities/categoria.entity";
 import { DeleteResult, ILike, Repository } from "typeorm";
+import { Produto } from "../../produto/entities/produto.entity";
 
 @Injectable()
 export class CategoriaService {
@@ -13,7 +14,7 @@ export class CategoriaService {
     async findAll(): Promise<Categoria[]> {
         return await this.categoriaRepository.find({
             relations: {
-                produto: true
+                produtos: true
             }
         });
     }
@@ -25,7 +26,7 @@ export class CategoriaService {
                 id
             },
             relations: {
-                produto: true
+                produtos: true
             }
         });
 
@@ -41,9 +42,17 @@ export class CategoriaService {
                 nome: ILike(`%${nome}%`)
             },
             relations: {
-                produto: true
+                produtos: true
             }
         })
+    }
+
+    async findProdutosByCategoria(id: number): Promise<Produto[]> {
+        const categoria = await this.categoriaRepository.findOne({
+            where: { id },
+            relations: { produtos: true}
+        });
+        return categoria ? categoria.produtos : [];
     }
 
     async create(Categoria: Categoria): Promise<Categoria> {

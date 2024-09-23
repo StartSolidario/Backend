@@ -20,7 +20,6 @@ export class ProdutoService {
         });
     }
 
-    
     async findById(id: number): Promise<Produto> {
         let buscaProduto = await this.produtoRepository.findOne({
             where:{
