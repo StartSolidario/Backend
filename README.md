@@ -1,75 +1,143 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# StartSolidario - Backend
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este repositorio guarda o backend da aplicação StartSolidario, bem como algumas explicaçoes de como ele funciona
 
-## Description
+## Documentação - Swagger
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Caso tenha pressa e/ou conhecimento na area, segue um link levando ao swagger da aplicação: [Swagger](https://backend-95bj.onrender.com/swagger)
 
-## Installation
+## Estrutura de dados
+
+### O Backend é composto por 4 tableas são elas:
+
+| Nome          | Descrição                           |
+| :------------ | :---------------------------------- |
+| tb_usuario    | Armazena os dados dos usuarios      |
+| tb_viagens    | Armazena as Viagens disponiveis     |
+| tb_categorias | Armazena as categorias dos produtos |
+| tb_produto    | Armazena os produtos do e-commerce  |
+
+### Vamos nos aprofundar em cada uma delas:
+#### tb_usuario: 
+
+| Parâmetro | Tipo     | Anulavel | Descrição |
+| :-------- | :------- | :------- | :-------- |
+| `id`      | `number` | Não | Chave autoincremental |
+| `nome`    | `string` | Não | Nome do Usuario  |
+| `idade`   | `Date`   | Não | Data de nascimento do Usuario |
+| `cpf`     | `string` | Não | CPF do Usuario   |
+| `usuario` | `string` | Não | Email do Usuario |
+| `senha`   | `string` | Não | Senha(criptografada) do Usuario |
+| `foto`    | `string` | Não | URL da foto de perfil |
+| `tipo`    | `string` | Sim | Tipo de Usuario (Administrador ou Comum) |
+
+##### Detalhes e curiosidades:
+- A idade é recebida atraves de data americana (MM/DD/YYYY)
+- O campo "tipo" não pode ser prenchido atraves dos formularios do Front normalmente, mas existe um "easter egg" que permite a criação de um administrador por lá
+
+
+#### tb_viagens: 
+
+| Parâmetro      | Tipo     | Anulavel | Descrição |
+| :------------- | :------- | :------- | :-------- |
+| `id`           | `number` | Não | Chave autoincremental |
+| `destino`      | `string` | Não | Destino da viagem  |
+| `data_partida` | `string` | Não | Data de partida da viagem |
+| `data_retorno` | `string` | Não | Data de retorno da viagem |
+| `detalhes`     | `string` | Não | Detalhes da missão, o que o voluntario vai estar fazendo no periodo de trabalho |
+| `imagem`       | `string` | Não | URL - Imagem do Destino |
+
+##### Detalhes e curiosidades:
+- Apesar da data de partida e retorno serem datas, seu tipo esta marcado como "string", isso acontece pois como esse valor nunca vai ser trabalhado/manipulado como data, sendo apenas exibido em alguns pontos, o programador encarregado quis evitar a dor de cabeça de trabalhar com tipo "Date"
+
+
+#### tb_categorias: 
+
+| Parâmetro  | Tipo        | Anulavel | Descrição |
+| :--------- | :---------- | :------- | :-------- |
+| `id`       | `number`    | Não | Chave autoincremental |
+| `nome`     | `string`    | Não | Nome da categoria  |
+| `imagem`   | `string`    | Não | URL - Imagem/Icon da categoria |
+| `produtos` | `Produto[]` | Não | Produtos dessa categoria |
+
+##### Detalhes e curiosidades:
+- Existem muitas funçoes de listagem (R - CRUD) não utilizadas relacionadas a essa tabela
+
+
+#### tb_produto: 
+
+| Parâmetro    | Tipo        | Anulavel | Descrição |
+| :----------- | :---------- | :------- | :-------- |
+| `id`         | `number`    | Não | Chave autoincremental |
+| `nome`       | `string`    | Não | Nome do produto  |
+| `tamanho`    | `string`    | Sim | Tamanho do produto |
+| `cor`        | `string`    | Sim | Cor do produto |
+| `preco`      | `number / decimal` | Não | Preço do produto |
+| `quantidade` | `number`    | Sim | Quantidade em estoque do produto |
+| `foto`       | `string`    | Não | URL - Imagem do produto |
+| `categoria`  | `Categoria` | Não | Categoria do produto |
+
+##### Detalhes e curiosidades:
+- O campo "preco" é tanto um number quanto decimal, dependendo de onde ele esta, na tabela é armazenado como decimal mas em outros lugares é convertido e usado como number
+
+##  Onde Fica O Que?
+
+#### Tabelas
+- Caminhos URL estão na pasta **controllers** da respctiva tabela
+- Estruturas de dados estão na pasta **entities** da respctiva tabela
+- Metodos CRUD estão na pasta **services** da respctiva tabela
+
+#### Local e Nuvem
+- Para rodar **local**: data/services/**dev.service.ts**
+- Para rodar **nuvem**: data/services/**prod.service.ts**
+
+## CRUD (Create - Read - Update - Delete) e Security:
+
+Todas as tabelas, com exeção de "tb_usuario", possuem um CRUD completo e protegidos parcialmente; "tb_usuario" não possui a função de deletar, alem disso apenas os metodos de Criar, Atualizar e Deletar de todas as tabelas são protegidos, permitindo que qualquer usuario veja/liste os dados mas apenas pessoas autenticadas possam altera-los.
+
+## Clonando e Rodando localmente
+
+Clone o projeto
 
 ```bash
-$ npm install
+  git clone https://github.com/StartSolidario/Backend.git
 ```
 
-## Running the app
+Entre no diretório do projeto
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  cd Backend
 ```
 
-## Test
+Instale as dependências
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  npm install
 ```
 
-## Support
+#### Antes de iniciar o servidor, vai ser necessario alterar o codigo para rodar localmente, siga o passo-a-passo:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+<br />
 
-## Stay in touch
+1. Para fazer alterações no código do projeto e executar localmente, no **Visual Studio Code**, abra a **Classe AppModule**, localizada na pasta **src** e **localize a linha indicada na imagem abaixo, que contém a chamada para a Classe ProdService com a configuração do Banco de dados na nuvem**.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+<div align="center"> 
+<img src="https://i.imgur.com/bdvbvCe.png" title="source: imgur.com" />
+</div>
 
-## License
+2. Na sequência, substitua a **Classe ProdService** (configuração do Banco de dados da nuvem), pela **Classe DevService** (configuração do Banco de dados local), indicada na imagem abaixo:
 
-Nest is [MIT licensed](LICENSE).
-# Backend
-Backend do projeto integrador
+<div align="center">
+<img src="https://i.imgur.com/ZJcWThI.png" title="source: imgur.com" />
+</div>
+
+<br />
+
+**Lembre-se de criar o banco de dados local!**
+
+#### Apos alterações, inicie o servidor:
+
+```bash
+  npm run start
+```
